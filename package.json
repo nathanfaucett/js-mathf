@@ -1,0 +1,25 @@
+{
+  "name": "mathf",
+  "version": "0.0.1",
+  "description": "mathf for the browser and node.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanfaucett/mathf.git"
+  },
+  "main": "src/index.js",
+  "keywords": [
+    "mathf",
+    "mathf.js"
+  ],
+  "author": "Nathan Faucett",
+  "license": "BSD-2-Clause",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsbeautifier": ""
+  },
+  "dependencies": {
+    "utils": "nathanfaucett/utils"
+  }
+}
