@@ -20,6 +20,6 @@
     "grunt-jsbeautifier": ""
   },
   "dependencies": {
-    "utils": "nathanfaucett/utils"
+    "keys": "nathanfaucett/keys"
   }
 }

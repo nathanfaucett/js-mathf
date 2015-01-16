@@ -1,4 +1,4 @@
-var utils = require("utils");
+var keys = require("keys");
 
 
 var mathf = module.exports;
@@ -264,9 +264,9 @@ mathf.randChoice = function(array) {
 };
 
 mathf.randChoiceObject = function(object) {
-    var keys = utils.keys(object);
+    var objectKeys = keys(object);
 
-    return object[keys[(mathf.random() * keys.length) | 0]];
+    return object[objectKeys[(mathf.random() * objectKeys.length) | 0]];
 };
 
 mathf.isPowerOfTwo = function(x) {
@@ -317,29 +317,29 @@ var n225 = 0.39269908169872414,
 mathf.directionAngle = function(a) {
     a = mathf.standardRadian(a);
 
-    if (a >= n3375 && a < n225) return RIGHT;
-    if (a >= n225 && a < n675) return UP_RIGHT;
-    if (a >= n675 && a < n1125) return UP;
-    if (a >= n1125 && a < n1575) return UP_LEFT;
-    if (a >= n1575 && a < n2025) return LEFT;
-    if (a >= n2025 && a < n2475) return DOWN_LEFT;
-    if (a >= n2475 && a < n2925) return DOWN;
-    if (a >= n2925 && a < n3375) return DOWN_RIGHT;
-
-    return RIGHT;
+    return (
+        (a >= n225 && a < n675) ? UP_RIGHT :
+        (a >= n675 && a < n1125) ? UP :
+        (a >= n1125 && a < n1575) ? UP_LEFT :
+        (a >= n1575 && a < n2025) ? LEFT :
+        (a >= n2025 && a < n2475) ? DOWN_LEFT :
+        (a >= n2475 && a < n2925) ? DOWN :
+        (a >= n2925 && a < n3375) ? DOWN_RIGHT :
+        RIGHT
+    );
 };
 
 mathf.direction = function(x, y) {
     var a = mathf.standardRadian(mathf.atan2(y, x));
 
-    if (a >= n3375 && a < n225) return RIGHT;
-    if (a >= n225 && a < n675) return UP_RIGHT;
-    if (a >= n675 && a < n1125) return UP;
-    if (a >= n1125 && a < n1575) return UP_LEFT;
-    if (a >= n1575 && a < n2025) return LEFT;
-    if (a >= n2025 && a < n2475) return DOWN_LEFT;
-    if (a >= n2475 && a < n2925) return DOWN;
-    if (a >= n2925 && a < n3375) return DOWN_RIGHT;
-
-    return RIGHT;
+    return (
+        (a >= n225 && a < n675) ? UP_RIGHT :
+        (a >= n675 && a < n1125) ? UP :
+        (a >= n1125 && a < n1575) ? UP_LEFT :
+        (a >= n1575 && a < n2025) ? LEFT :
+        (a >= n2025 && a < n2475) ? DOWN_LEFT :
+        (a >= n2475 && a < n2925) ? DOWN :
+        (a >= n2925 && a < n3375) ? DOWN_RIGHT :
+        RIGHT
+    );
 };
