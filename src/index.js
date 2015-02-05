@@ -25,7 +25,9 @@ mathf.LOG10E = Math.LOG10E;
 mathf.SQRT1_2 = Math.SQRT1_2;
 mathf.SQRT2 = Math.SQRT2;
 
-mathf.abs = Math.abs;
+mathf.abs = function abs(x) {
+    return x < 0 ? -x : x;
+};
 
 mathf.acos = Math.acos;
 mathf.acosh = Math.acosh || (Math.acosh = function acosh(x) {
@@ -93,8 +95,7 @@ mathf.tanh = Math.tanh || (Math.tanh = function tanh(x) {
 });
 
 mathf.equals = function(a, b, e) {
-
-    return mathf.abs(a - b) < (e !== undefined ? e : mathf.EPSILON);
+    return mathf.abs(a - b) < (e !== void 0 ? e : mathf.EPSILON);
 };
 
 mathf.modulo = function(a, b) {
@@ -104,43 +105,35 @@ mathf.modulo = function(a, b) {
 };
 
 mathf.standardRadian = function(x) {
-
     return mathf.modulo(x, mathf.TWO_PI);
 };
 
 mathf.standardAngle = function(x) {
-
     return mathf.modulo(x, 360);
 };
 
 mathf.sign = function(x) {
-
     return x < 0 ? -1 : 1;
 };
 
 mathf.snap = function(x, y) {
     var m = x % y;
-
     return m < y ? x - m : x + y - m;
 };
 
 mathf.clamp = function(x, min, max) {
-
     return x < min ? min : x > max ? max : x;
 };
 
 mathf.clampBottom = function(x, min) {
-
     return x < min ? min : x;
 };
 
 mathf.clampTop = function(x, max) {
-
     return x > max ? max : x;
 };
 
 mathf.clamp01 = function(x) {
-
     return x < 0 ? 0 : x > 1 ? 1 : x;
 };
 
@@ -152,17 +145,14 @@ mathf.truncate = function(x, n) {
 };
 
 mathf.lerp = function(a, b, x) {
-
     return a + (b - a) * x;
 };
 
 mathf.lerpRadian = function(a, b, x) {
-
     return mathf.standardRadian(a + (b - a) * x);
 };
 
 mathf.lerpAngle = function(a, b, x) {
-
     return mathf.standardAngle(a + (b - a) * x);
 };
 
@@ -192,8 +182,12 @@ mathf.lerpCubic = function(v0, v1, v2, v3, x) {
 };
 
 mathf.smoothStep = function(x, min, max) {
-    if (x <= min) return 0;
-    if (x >= max) return 1;
+    if (x <= min) {
+        return 0;
+    }
+    if (x >= max) {
+        return 1;
+    }
 
     x = (x - min) / (max - min);
 
@@ -201,8 +195,12 @@ mathf.smoothStep = function(x, min, max) {
 };
 
 mathf.smootherStep = function(x, min, max) {
-    if (x <= min) return 0;
-    if (x >= max) return 1;
+    if (x <= min) {
+        return 0;
+    }
+    if (x >= max) {
+        return 1;
+    }
 
     x = (x - min) / (max - min);
 
@@ -210,33 +208,28 @@ mathf.smootherStep = function(x, min, max) {
 };
 
 mathf.pingPong = function(x, length) {
-    length || (length = 1);
+    length = length || 1;
 
     return length - mathf.abs(x % (2 * length) - length);
 };
 
 mathf.degsToRads = function(x) {
-
     return mathf.standardRadian(x * mathf.TO_RADS);
 };
 
 mathf.radsToDegs = function(x) {
-
     return mathf.standardAngle(x * mathf.TO_DEGS);
 };
 
 mathf.randInt = function(min, max) {
-
     return mathf.round(min + (mathf.random() * (max - min)));
 };
 
 mathf.randFloat = function(min, max) {
-
     return min + (mathf.random() * (max - min));
 };
 
 mathf.randSign = function() {
-
     return mathf.random() < 0.5 ? 1 : -1;
 };
 
@@ -250,16 +243,15 @@ mathf.shuffle = function(array) {
         array[i] = array[j];
         array[j] = x;
     }
+
     return array;
 };
 
 mathf.randArg = function() {
-
     return arguments[(mathf.random() * arguments.length) | 0];
 };
 
 mathf.randChoice = function(array) {
-
     return array[(mathf.random() * array.length) | 0];
 };
 
@@ -270,7 +262,6 @@ mathf.randChoiceObject = function(object) {
 };
 
 mathf.isPowerOfTwo = function(x) {
-
     return (x & -x) === x;
 };
 
