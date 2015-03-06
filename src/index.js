@@ -1,7 +1,7 @@
 var keys = require("keys");
 
 
-var mathf = module.exports;
+var mathf = exports;
 
 
 mathf.ArrayType = typeof(Float32Array) !== "undefined" ? Float32Array : Array;
@@ -166,8 +166,8 @@ mathf.lerpCos = function(a, b, x) {
 mathf.lerpCubic = function(v0, v1, v2, v3, x) {
     var P, Q, R, S, Px, Qx, Rx;
 
-    v0 || (v0 = v1);
-    v3 || (v3 = v2);
+    v0 = v0 || v1;
+    v3 = v3 || v2;
 
     P = (v3 - v2) - (v0 - v1);
     Q = (v0 - v1) - P;
