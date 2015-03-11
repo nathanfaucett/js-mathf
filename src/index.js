@@ -12,7 +12,7 @@ mathf.TWO_PI = mathf.TAU;
 mathf.HALF_PI = mathf.PI * 0.5;
 mathf.FOURTH_PI = mathf.PI * 0.25;
 
-mathf.EPSILON = 0.000001;
+mathf.EPSILON = Number.EPSILON || Math.pow(2, -52);
 
 mathf.TO_RADS = mathf.PI / 180;
 mathf.TO_DEGS = 180 / mathf.PI;

@@ -11,6 +11,9 @@
     "mathf",
     "mathf.js"
   ],
+  "scripts": {
+    "example": "comn -f src/index.js -o example/index.min.js -e mathf"
+  },
   "author": "Nathan Faucett",
   "license": "BSD-2-Clause",
   "readmeFilename": "README.md",
