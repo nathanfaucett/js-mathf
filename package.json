@@ -23,6 +23,7 @@
     "grunt-jsbeautifier": ""
   },
   "dependencies": {
+    "is_nan": "git://github.com/nathanfaucett/is_nan",
     "keys": "nathanfaucett/keys"
   }
 }
