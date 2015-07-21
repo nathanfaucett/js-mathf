@@ -12,7 +12,7 @@
     "mathf.js"
   ],
   "scripts": {
-    "example": "comn -f src/index.js -o example/index.min.js -e mathf"
+    "example": "comn -f src/index.js -o example/index.js -e mathf"
   },
   "author": "Nathan Faucett",
   "license": "BSD-2-Clause",
@@ -23,7 +23,7 @@
     "grunt-jsbeautifier": ""
   },
   "dependencies": {
-    "is_nan": "git://github.com/nathanfaucett/is_nan",
-    "keys": "nathanfaucett/keys"
+    "is_nan": "git://github.com/nathanfaucett/is_nan.git",
+    "keys": "git://github.com/nathanfaucett/keys.git"
   }
 }

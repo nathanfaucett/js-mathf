@@ -4,7 +4,7 @@ var keys = require("keys"),
 
 var mathf = exports,
 
-    NativeMath = Math,
+    NativeMath = global.Math,
 
     NativeFloat32Array = typeof(Float32Array) !== "undefined" ? Float32Array : Array;
 
