@@ -15,7 +15,7 @@
     "example": "comn -f src/index.js -o example/index.js -e mathf"
   },
   "author": "Nathan Faucett",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
     "grunt": "",
