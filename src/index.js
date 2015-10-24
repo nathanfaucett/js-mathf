@@ -1,3 +1,4 @@
+/*jshint -W079 */
 var keys = require("keys"),
     isNaN = require("is_nan");
 
