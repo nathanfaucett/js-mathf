@@ -1,13 +1,17 @@
-/*jshint -W079 */
 var keys = require("keys"),
-    isNaN = require("is_nan");
+    clamp = require("clamp"),
+    isNaNPolyfill = require("is_nan");
 
 
 var mathf = exports,
 
     NativeMath = global.Math,
 
-    NativeFloat32Array = typeof(Float32Array) !== "undefined" ? Float32Array : Array;
+    hasFloat32Array = typeof(Float32Array) !== "undefined",
+    NativeFloat32Array = hasFloat32Array ? Float32Array : Array,
+
+    TO_RADS = mathf.PI / 180,
+    TO_DEGS = 180 / mathf.PI;
 
 
 mathf.ArrayType = NativeFloat32Array;
@@ -20,8 +24,8 @@ mathf.FOURTH_PI = mathf.PI * 0.25;
 
 mathf.EPSILON = Number.EPSILON || NativeMath.pow(2, -52);
 
-mathf.TO_RADS = mathf.PI / 180;
-mathf.TO_DEGS = 180 / mathf.PI;
+mathf.TO_RADS = TO_RADS;
+mathf.TO_DEGS = TO_DEGS;
 
 mathf.E = NativeMath.E;
 mathf.LN2 = NativeMath.LN2;
@@ -34,52 +38,57 @@ mathf.SQRT2 = NativeMath.SQRT2;
 mathf.abs = NativeMath.abs;
 
 mathf.acos = NativeMath.acos;
-mathf.acosh = NativeMath.acosh || (NativeMath.acosh = function acosh(x) {
+mathf.acosh = NativeMath.acosh || function acosh(x) {
     return mathf.log(x + mathf.sqrt(x * x - 1));
-});
+};
 mathf.asin = NativeMath.asin;
-mathf.asinh = NativeMath.asinh || (NativeMath.asinh = function asinh(x) {
+mathf.asinh = NativeMath.asinh || function asinh(x) {
     if (x === -Infinity) {
         return x;
     } else {
         return mathf.log(x + mathf.sqrt(x * x + 1));
     }
-});
+};
 mathf.atan = NativeMath.atan;
 mathf.atan2 = NativeMath.atan2;
-mathf.atanh = NativeMath.atanh || (NativeMath.atanh = function atanh(x) {
+mathf.atanh = NativeMath.atanh || function atanh(x) {
     return mathf.log((1 + x) / (1 - x)) / 2;
-});
+};
 
-mathf.cbrt = NativeMath.cbrt || (NativeMath.cbrt = function cbrt(x) {
+mathf.cbrt = NativeMath.cbrt || function cbrt(x) {
     var y = mathf.pow(mathf.abs(x), 1 / 3);
     return x < 0 ? -y : y;
-});
+};
 
 mathf.ceil = NativeMath.ceil;
 
-mathf.clz32 = NativeMath.clz32 || (NativeMath.clz32 = function clz32(value) {
+mathf.clz32 = NativeMath.clz32 || function clz32(value) {
     value = +value >>> 0;
     return value ? 32 - value.toString(2).length : 32;
-});
+};
 
 mathf.cos = NativeMath.cos;
-mathf.cosh = NativeMath.cosh || (NativeMath.cosh = function cosh(x) {
+mathf.cosh = NativeMath.cosh || function cosh(x) {
     return (mathf.exp(x) + mathf.exp(-x)) / 2;
-});
+};
 
 mathf.exp = NativeMath.exp;
 
-mathf.expm1 = NativeMath.expm1 || (NativeMath.expm1 = function expm1(x) {
+mathf.expm1 = NativeMath.expm1 || function expm1(x) {
     return mathf.exp(x) - 1;
-});
+};
 
 mathf.floor = NativeMath.floor;
-mathf.fround = NativeMath.fround || (NativeMath.fround = function fround(x) {
-    return new NativeFloat32Array([x])[0];
-});
+mathf.fround = NativeMath.fround || (hasFloat32Array ?
+    function fround(x) {
+        return new NativeFloat32Array([x])[0];
+    } :
+    function fround(x) {
+        return x;
+    }
+);
 
-mathf.hypot = NativeMath.hypot || (NativeMath.hypot = function hypot() {
+mathf.hypot = NativeMath.hypot || function hypot() {
     var y = 0,
         i = -1,
         il = arguments.length - 1,
@@ -96,30 +105,30 @@ mathf.hypot = NativeMath.hypot || (NativeMath.hypot = function hypot() {
     }
 
     return mathf.sqrt(y);
-});
+};
 
-mathf.imul = NativeMath.imul || (NativeMath.imul = function imul(a, b) {
+mathf.imul = NativeMath.imul || function imul(a, b) {
     var ah = (a >>> 16) & 0xffff,
         al = a & 0xffff,
         bh = (b >>> 16) & 0xffff,
         bl = b & 0xffff;
 
     return ((al * bl) + (((ah * bl + al * bh) << 16) >>> 0) | 0);
-});
+};
 
 mathf.log = NativeMath.log;
 
-mathf.log1p = NativeMath.log1p || (NativeMath.log1p = function log1p(x) {
+mathf.log1p = NativeMath.log1p || function log1p(x) {
     return mathf.log(1 + x);
-});
+};
 
-mathf.log10 = NativeMath.log10 || (NativeMath.log10 = function log10(x) {
+mathf.log10 = NativeMath.log10 || function log10(x) {
     return mathf.log(x) / mathf.LN10;
-});
+};
 
-mathf.log2 = NativeMath.log2 || (NativeMath.log2 = function log2(x) {
+mathf.log2 = NativeMath.log2 || function log2(x) {
     return mathf.log(x) / mathf.LN2;
-});
+};
 
 mathf.max = NativeMath.max;
 mathf.min = NativeMath.min;
@@ -129,23 +138,24 @@ mathf.pow = NativeMath.pow;
 mathf.random = NativeMath.random;
 mathf.round = NativeMath.round;
 
-mathf.sign = NativeMath.sign || (NativeMath.sign = function sign(x) {
+mathf.sign = NativeMath.sign || function sign(x) {
     x = +x;
-    if (x === 0 || isNaN(x)) {
+    if (x === 0 || isNaNPolyfill(x)) {
         return x;
     } else {
         return x > 0 ? 1 : -1;
     }
-});
+};
 
 mathf.sin = NativeMath.sin;
-mathf.sinh = NativeMath.sinh || (NativeMath.sinh = function sinh(x) {
+mathf.sinh = NativeMath.sinh || function sinh(x) {
     return (mathf.exp(x) - mathf.exp(-x)) / 2;
-});
+};
+
 mathf.sqrt = NativeMath.sqrt;
 
 mathf.tan = NativeMath.tan;
-mathf.tanh = NativeMath.tanh || (NativeMath.tanh = function tanh(x) {
+mathf.tanh = NativeMath.tanh || function tanh(x) {
     if (x === Infinity) {
         return 1;
     } else if (x === -Infinity) {
@@ -153,19 +163,18 @@ mathf.tanh = NativeMath.tanh || (NativeMath.tanh = function tanh(x) {
     } else {
         return (mathf.exp(x) - mathf.exp(-x)) / (mathf.exp(x) + mathf.exp(-x));
     }
-});
+};
 
-mathf.trunc = NativeMath.trunc || (NativeMath.trunc = function trunc(x) {
+mathf.trunc = NativeMath.trunc || function trunc(x) {
     return x < 0 ? mathf.ceil(x) : mathf.floor(x);
-});
+};
 
 mathf.equals = function(a, b, e) {
-    return mathf.abs(a - b) < (e !== void 0 ? e : mathf.EPSILON);
+    return mathf.abs(a - b) < (e !== void(0) ? e : mathf.EPSILON);
 };
 
 mathf.modulo = function(a, b) {
     var r = a % b;
-
     return (r * b < 0) ? r + b : r;
 };
 
@@ -182,9 +191,7 @@ mathf.snap = function(x, y) {
     return m < (y * 0.5) ? x - m : x + y - m;
 };
 
-mathf.clamp = function(x, min, max) {
-    return x < min ? min : x > max ? max : x;
-};
+mathf.clamp = clamp;
 
 mathf.clampBottom = function(x, min) {
     return x < min ? min : x;
@@ -195,7 +202,13 @@ mathf.clampTop = function(x, max) {
 };
 
 mathf.clamp01 = function(x) {
-    return x < 0 ? 0 : x > 1 ? 1 : x;
+    if (x < 0) {
+        return 0;
+    } else if (x > 1) {
+        return 1;
+    } else {
+        return x;
+    }
 };
 
 mathf.truncate = function(x, n) {
@@ -274,11 +287,11 @@ mathf.pingPong = function(x, length) {
 };
 
 mathf.degsToRads = function(x) {
-    return mathf.standardRadian(x * mathf.TO_RADS);
+    return mathf.standardRadian(x * TO_RADS);
 };
 
 mathf.radsToDegs = function(x) {
-    return mathf.standardAngle(x * mathf.TO_DEGS);
+    return mathf.standardAngle(x * TO_DEGS);
 };
 
 mathf.randInt = function(min, max) {
