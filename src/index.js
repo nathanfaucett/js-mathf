@@ -8,10 +8,7 @@ var mathf = exports,
     NativeMath = global.Math,
 
     hasFloat32Array = typeof(Float32Array) !== "undefined",
-    NativeFloat32Array = hasFloat32Array ? Float32Array : Array,
-
-    TO_RADS = mathf.PI / 180,
-    TO_DEGS = 180 / mathf.PI;
+    NativeFloat32Array = hasFloat32Array ? Float32Array : Array;
 
 
 mathf.ArrayType = NativeFloat32Array;
@@ -24,8 +21,8 @@ mathf.FOURTH_PI = mathf.PI * 0.25;
 
 mathf.EPSILON = Number.EPSILON || NativeMath.pow(2, -52);
 
-mathf.TO_RADS = TO_RADS;
-mathf.TO_DEGS = TO_DEGS;
+mathf.TO_RADS = mathf.PI / 180;
+mathf.TO_DEGS = 180 / mathf.PI;
 
 mathf.E = NativeMath.E;
 mathf.LN2 = NativeMath.LN2;
@@ -287,11 +284,11 @@ mathf.pingPong = function(x, length) {
 };
 
 mathf.degsToRads = function(x) {
-    return mathf.standardRadian(x * TO_RADS);
+    return mathf.standardRadian(x * mathf.TO_RADS);
 };
 
 mathf.radsToDegs = function(x) {
-    return mathf.standardAngle(x * TO_DEGS);
+    return mathf.standardAngle(x * mathf.TO_DEGS);
 };
 
 mathf.randInt = function(min, max) {
