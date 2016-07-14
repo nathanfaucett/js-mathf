@@ -1,4 +1,4 @@
 mathf
 =======
 
-math functions for the browser and node.js
+math polyfills and helper functions

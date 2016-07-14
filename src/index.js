@@ -1,6 +1,6 @@
-var keys = require("keys"),
-    clamp = require("clamp"),
-    isNaNPolyfill = require("is_nan");
+var keys = require("@nathanfaucett/keys"),
+    clamp = require("@nathanfaucett/clamp"),
+    isNaNPolyfill = require("@nathanfaucett/is_nan");
 
 
 var mathf = exports,
