@@ -1,6 +1,6 @@
 {
   "name": "@nathanfaucett/mathf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "math polyfills and helper functions",
   "repository": {
     "type": "git",

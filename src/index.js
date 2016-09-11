@@ -127,6 +127,14 @@ mathf.log2 = NativeMath.log2 || function log2(x) {
     return mathf.log(x) / mathf.LN2;
 };
 
+mathf.fac = function fac(n) {
+    if (n < 2) {
+        return 1;
+    } else {
+        return n * fac(n - 1);
+    }
+};
+
 mathf.max = NativeMath.max;
 mathf.min = NativeMath.min;
 
