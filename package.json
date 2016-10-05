@@ -1,6 +1,6 @@
 {
   "name": "@nathanfaucett/mathf",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "math polyfills and helper functions",
   "repository": {
     "type": "git",
@@ -29,8 +29,8 @@
     "zuul": "^3.7.2"
   },
   "dependencies": {
-    "@nathanfaucett/is_nan": "^0.0.1",
+    "@nathanfaucett/is_nan": "^0.0.2",
     "@nathanfaucett/clamp": "^0.0.1",
-    "@nathanfaucett/keys": "^0.0.1"
+    "@nathanfaucett/keys": "^0.0.2"
   }
 }
